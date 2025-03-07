@@ -91,13 +91,13 @@ if __name__ == "__main__":
     # Plotting
     # Set global font size
     plt.rcParams.update({"font.size": 14})
-    plt.figure(figsize=(4, 10))
-    for index in range(5, len(df), 20):
+    plt.figure(figsize=(5, 10))
+    for index in range(6, len(df), 5 * 4):
         # Normalize the scopes array
         normalized_scopes = (
             df.iloc[index]["intensity"] / df.iloc[index]["intensity"][index_932nm]
         )
-        y_offset = (index // 20) * 1.45  # Increment by 0.1 for each successive curve
+        y_offset = (index // 5 * 4) * 0.15  # Increment by 0.1 for each successive curve
         # Swap axes: plot raman_shift on the x-axis and normalized intensity on the y-axis
         plt.plot(df.iloc[index]["raman_shift"], normalized_scopes + y_offset)
 
@@ -107,7 +107,10 @@ if __name__ == "__main__":
     # plt.title("Scope vs Wavelength for " + df.iloc[0]["filename"])
     plt.xlim(400, 1800)
     # plt.ylim(bottom=0.85)
-    plt.legend(["0 min", "5 min", "10 min", "15 min"])
+    plt.legend(
+        ["0 min", "5 min", "10 min", "15 min", "20 min", "25 min", "30 min"],
+        frameon=False,
+    )
     plt.grid(False)
     plt.yticks([])
     plt.tight_layout()
