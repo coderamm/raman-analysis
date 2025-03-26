@@ -11,13 +11,13 @@ import sys
 
 def userInputPrompts():
     """
-    Prompts user to select a folder, input the pit radius, pit separation
-    ratio, current applied. Additionally prompts for
+    Prompts user to select the folder containing the Avantes .raw8 files
 
     Args:
         No function arguments
 
     Returns:
+        folder_name (str)   : the name of the folder selected by the user
         file_list (list)    : a List of filenames present in the directory
                             chosen by user
 
@@ -28,7 +28,7 @@ def userInputPrompts():
     # Show dialog, accept folder path and change folder
     root = tk.Tk()
     root.update()
-    folder_path = askdirectory(title="Select folder containing images to be analysed")
+    folder_path = askdirectory(title="Select folder containing the .raw8 files")
     root.destroy()
     os.chdir(folder_path)
 
