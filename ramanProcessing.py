@@ -91,25 +91,53 @@ if __name__ == "__main__":
     # Plotting
     # Set global font size
     plt.rcParams.update({"font.size": 14})
-    plt.figure(figsize=(5, 10))
-    for index in range(6, len(df), 5 * 4):
+    plt.figure(
+        figsize=(7.5, 10)
+    )  # 7.5, 10 for broader with legend outside; 5, 10 for normal
+    lines = []
+    for index in range(9, len(df), 2 * 4):
         # Normalize the scopes array
         normalized_scopes = (
             df.iloc[index]["intensity"] / df.iloc[index]["intensity"][index_932nm]
         )
-        y_offset = (index // 5 * 4) * 0.15  # Increment by 0.1 for each successive curve
+        y_offset = (
+            index // 2 * 4
+        ) * 0.025  # Increment by 0.1 for each successive curve
         # Swap axes: plot raman_shift on the x-axis and normalized intensity on the y-axis
-        plt.plot(df.iloc[index]["raman_shift"], normalized_scopes + y_offset)
+        (line,) = plt.plot(df.iloc[index]["raman_shift"], normalized_scopes + y_offset)
+        lines.append(line)
 
     # Adding labels and title
     plt.xlabel("Raman shift (1/cm)")
     # plt.ylabel("Scope")
     # plt.title("Scope vs Wavelength for " + df.iloc[0]["filename"])
     plt.xlim(400, 1800)
-    # plt.ylim(bottom=0.85)
+    plt.ylim(bottom=0.57)  # , top=2.7)
+
+    # Set legend
+    legend = [
+        "0.71 V",
+        "0.51 V",
+        "0.31 V",
+        "0.11 V",
+        "-0.09 V",
+        "-0.29 V",
+        "-0.49 V",
+        "-0.69 V",
+        "-0.89 V",
+        "-1.09 V",
+        "-1.29 V",
+        "-1.49 V",
+        "-1.69 V",
+    ]
+    lines.reverse()
+    legend.reverse()
     plt.legend(
-        ["0 min", "5 min", "10 min", "15 min", "20 min", "25 min", "30 min"],
+        lines,
+        legend,
         frameon=False,
+        loc="center left",
+        bbox_to_anchor=(1, 0.5),
     )
     plt.grid(False)
     plt.yticks([])
